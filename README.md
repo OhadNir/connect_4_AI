@@ -19,7 +19,6 @@ Markup : Classes:
             *Board value
 
 
- Markup : * Bullet list
-              * Nested bullet
-                  * Sub-nested bullet etc
-          * Bullet list item 2
+- George Washington
+- John Adams
+- Thomas Jefferson
