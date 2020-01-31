@@ -6,7 +6,7 @@
 class Board {
   public:
   Board();
-  Board(int** b, unsigned int num);
+  Board(int** b);
   ~Board() {this->del();}
 
 
@@ -17,23 +17,21 @@ class Board {
 
   private:
   int** board;
-  unsigned int open_columns;
   void create_board();
-  void copy_board(int** b, unsigned int num);
+  void copy_board(int** b);
   void del();
 };
 
 Board::Board() {
   this->create_board();
 }
-Board::Board(int** b, unsigned int num) {
-  this->copy_board(b, num);
+Board::Board(int** b) {
+  this->copy_board(b);
 }
 void Board::del() {
 }
 void Board::create_board() {
   board = new int* [7];
-  open_columns = 7;
   for(int i=0; i<7; i++) {
     board[i] = new int[6];
     for(int j=0; j<6; j++) {
@@ -41,9 +39,8 @@ void Board::create_board() {
     }
   }
 }
-void Board::copy_board(int** b, unsigned int num) {
+void Board::copy_board(int** b) {
   board = new int* [7];
-  open_columns = num;
   for(int i=0; i<7; i++) {
     board[i] = new int[6];
     for(int j=0; j<6; j++) {
@@ -57,9 +54,6 @@ bool Board::set_val_index(int column, bool player_type) {
     if (c[0] == 0) {
       for (int i=5; i>-1; i--) {
         if(c[i] == 0) {
-          if(i=0) {
-            open_columns--;
-          }
           if(player_type) { c[i] = 1; }
           else { c[i] = -1; }
           return true;
@@ -77,6 +71,12 @@ bool Board::set_val_index(int column, bool player_type) {
   }
 }
 unsigned int Board::num_open_col() {
+  unsigned int open_columns = 7;
+  for(int i=0; i<7; i++) {
+    if (board[i][0] != 0) {
+      open_columns--;
+    }
+  }
   return open_columns;
 }
 int** Board::get_board() {

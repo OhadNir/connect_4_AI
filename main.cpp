@@ -4,22 +4,22 @@
 #include "node.h"
 #include "board.h"
 
-const int MAXDEPTH = 5;
+const int MAXDEPTH = 2;
 
 void generate_game_tree(Node& current_game_state, int depth, bool player_turn) {
   if(depth == 0 || current_game_state.num_open_col() == 0) {
     return;
   }
-  std::cout<< "test\n" << std::endl;
   Board b = current_game_state.get_board_obj();
   for(int i=0; i<7; i++) {
     if(b.get_board()[i][0] == 0) {
-      Node n = Node(b, i, player_turn);
+      Node* n = new Node(b, i, player_turn);
       current_game_state.add_child(n);
-      if(player_turn) { generate_game_tree(n, depth-1, false); }
-      else { generate_game_tree(n, depth-1, true); }
+      if(player_turn) { generate_game_tree(*n, depth-1, false); }
+      else { generate_game_tree(*n, depth-1, true); }
     }
   }
+
 }
 
 int main() {
@@ -63,15 +63,10 @@ int main() {
     std::cout << "Player 1: AI vs. Player 2: Player\nAI goes first." << std::endl;
     players_turn = false;
   }
+
   Node n = Node(players_turn);
-  std::cout << "n's board:\n";
-  n.print_board();
   generate_game_tree(n, MAXDEPTH, players_turn);
   bool game_over = false;
-  std::cout << "n's board:\n";
-  n.print_board();
-  std::list<Node*> temp = n.get_children();
-  std::cout << temp.size() << std::endl;
 
   // while(!game_over) {
   //   if(players_turn) {

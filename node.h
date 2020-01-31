@@ -18,7 +18,7 @@ class Node {
   int get_value();
   Node* get_parent();
   std::list<Node*> get_children();
-  void add_child(Node n);
+  void add_child(Node* n);
   void assign_parent(Node* n);
 
   /*Board functions*/
@@ -27,9 +27,8 @@ class Node {
   bool set_val_index(int column, bool player_type);
   unsigned int num_open_col();
 
-
-  // std::list<Node*>::iterator child_begin();
-  // std::list<Node*>::iterator child_end();
+  std::list<Node*>::iterator child_begin();
+  std::list<Node*>::iterator child_end();
 
   private:
   /*Private Class Variables*/
@@ -53,7 +52,7 @@ Node::Node(bool p) {
 }
 Node::Node(Board b, int c, bool p) {
   parent = NULL;
-  board = Board(b.get_board(), b.num_open_col());
+  board = Board(b.get_board());
   value = 1010; //special void value;
   column = c;
   player = p;
@@ -61,6 +60,12 @@ Node::Node(Board b, int c, bool p) {
 }
 void Node::del() {
   /*Destracor*/
+}
+std::list<Node*>::iterator Node::child_begin() {
+  return children.begin();
+}
+std::list<Node*>::iterator Node::child_end() {
+  return children.end();
 }
 
 int Node::calculate_move_value() {
@@ -81,9 +86,9 @@ std::list<Node*> Node::get_children() {
 void Node::print_board() {
   board.print_board();
 }
-void Node::add_child(Node n) {
-  children.push_back(&n);
-  n.assign_parent(this);
+void Node::add_child(Node* n) {
+  children.push_back(n);
+  n->assign_parent(this);
 }
 void Node::assign_parent(Node* n) {
   parent = n;
