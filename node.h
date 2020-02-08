@@ -1,4 +1,4 @@
-#infdef NODE_H
+#ifndef NODE_H
 #define NODE_H
 #include <iostream>
 #include <cstdlib>
@@ -6,26 +6,36 @@
 
 class Node {
   public:
+    /*Defult Constructor*/
+    Node();
     /*Constructor*/
-    Node(int**, int&, int&, int&);
+    Node(Node, int, int, int);
 
     /*Get Functions*/
-    int** getBoard() const;
     int getValue() const;
     int getPlayer() const;
+    int getColumn() const;
+    int** getBoard();
+    std::list<Node> getChildren();
 
     /*set Value*/
     void setValue(int);
 
-  private:
-    /*Member Functions*/
-    int** copy_board(int**&, int&, int&);
+    /*Functions*/
+    int evaluationBoard();
+    void print_board();
 
-    /*Member Varables*/
+
+  private:
+    /*Private Member Functions*/
+    void create_board();
+    void copy_board(int**);
+
+    /*Private Member Varables*/
     int** board;
-    int node_value;
-    int column_played;
-    int row_played;
+    int value;
+    int column;
+    int row;
     int player;
     std::list<Node> children;
 };

@@ -1,4 +1,4 @@
-#infdef GAMETREE_H
+#ifndef GAMETREE_H
 #define GAMETREE_H
 #include <iostream>
 #include <cstdlib>
@@ -8,14 +8,18 @@ class GameTree {
   public:
     /*Constructor*/
     GameTree();
-    void evaluation_board(int** &);
+
+    /*Public Member Functions*/
     int minimax(Node&, int, int, int, bool);
-    void move(int);
+    bool move(int);
+    void printGameSate();
+
 
   private:
-    /*Member Functions*/
-    Node generateTree();
-    /*Member Varables*/
+    /*Private Member Functions*/
+    void generateTree(Node&, int, bool);
+
+    /*Private Member Varables*/
     Node root;
 };
 
