@@ -9,21 +9,23 @@ class Node {
     /*Defult Constructor*/
     Node();
     /*Constructor*/
-    Node(Node, int, int, int);
+    Node(Node, int, int);
 
     /*Get Functions*/
     int getValue() const;
     int getPlayer() const;
     int getColumn() const;
     int** getBoard();
-    std::list<Node> getChildren();
+    std::list<Node*> getChildren();
 
     /*set Value*/
     void setValue(int);
+    void addChild(Node*);
 
     /*Functions*/
     int evaluationBoard();
     void print_board();
+    int numCol_open();
 
 
   private:
@@ -37,7 +39,7 @@ class Node {
     int column;
     int row;
     int player;
-    std::list<Node> children;
+    std::list<Node*> children;
 };
 
 #endif

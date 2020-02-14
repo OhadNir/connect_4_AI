@@ -10,14 +10,16 @@ class GameTree {
     GameTree();
 
     /*Public Member Functions*/
-    int minimax(Node&, int, int, int, bool);
-    bool move(int);
+    int minimax(Node&, int, int, int, int);
+    bool playerMove(int);
+    void aiMove();
     void printGameSate();
+    bool WinDraw();
 
 
   private:
     /*Private Member Functions*/
-    void generateTree(Node&, int, bool);
+    void generateTree(Node&, int, int);
 
     /*Private Member Varables*/
     Node root;
