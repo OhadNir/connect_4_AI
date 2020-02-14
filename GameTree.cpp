@@ -1,6 +1,6 @@
 #include "GameTree.h"
 
-int DEPTH = 5;
+int DEPTH = 1;
 
 GameTree::GameTree() {
   root = Node();
@@ -75,7 +75,7 @@ bool GameTree::WinDraw() {
     std::cout << "AI Wins!" << std::endl;
     return true;
   }
-  else if (root.getValue() <= -1000) {
+  else if (root.getValue() <= -3000) {
     std::cout << "Player Wins!" << std::endl;
     return true;
   }

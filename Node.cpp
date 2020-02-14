@@ -39,34 +39,66 @@ int Node::evaluationBoard() {
   //std::cout << "new" << std::endl;
   //this->print_board();
   int board_score = 0;
+
+  /*Horizontal*/
   for (int i=5; i>-1; i--) {
-    unsigned int start_h=0;
-    unsigned int end_h=3;
+    int start_h=0;
+    int end_h=3;
     for (; start_h < 4 && end_h < 7; start_h++, end_h++) {
       //std::cout << "Bowned : " << start_h << " ANOTHER: " << end_h << std::endl;
       unsigned int player_pieces=0;
       unsigned int ai_pieces=0;
       unsigned int open_space =0;
-      for (unsigned int j=start_h; j<end_h; j++) {
+      for (unsigned int j=start_h; j<end_h+1; j++) {
         if (board[j][i] == 1) { ai_pieces++; }
         else if (board[j][i] == -1) { player_pieces++; }
         else { open_space++; }
       }
-      if (ai_pieces == 1 && open_space == 2) { board_score+= 2; }
-      else if (ai_pieces == 2 && open_space == 1) { board_score+= 5; }
-      else if (ai_pieces == 3 && open_space == 0) { board_score+= 10; }
-      else if (ai_pieces == 4 && open_space == 0) { board_score+= 10000; }
-      else if (player_pieces == 1 && open_space == 2) { board_score+= -1; }
-      else if (player_pieces == 2 && open_space == 1) { board_score+= -12; }
-      else if (player_pieces == 3 && open_space == 0) { board_score+= -1000; }
+      board_score += scoring(ai_pieces, player_pieces, open_space);
       //std::cout << player_pieces << " " << ai_pieces << " " << open_space << std::endl;
-      //std::cout << (player_pieces == 1) << " " << (open_space == 3) << std::endl;
-      if(player_pieces == 1 && open_space == 3) {
-        //std::cout << "EVAL: " << board_score << std::endl;
-      }
     }
   }
+
+  /*Vertical*/
+  for (int i=0; i<7; i++) {
+    int start_v=2;
+    int end_v=5;
+    for (; start_v > -1 && end_v > 2; start_v--, end_v--) {
+      unsigned int player_pieces=0;
+      unsigned int ai_pieces=0;
+      unsigned int open_space =0;
+      for (unsigned int j=end_v; j>start_v-1; j--) {
+        if (board[i][j] == 1) { ai_pieces++; }
+        else if (board[i][j] == -1) { player_pieces++; }
+        else { open_space++; }
+      }
+      board_score += scoring(ai_pieces, player_pieces, open_space);
+    }
+  }
+
+  /*Diagonal Left*/
+  // for (; start_v )
+  // int start_h = 2
+  // int end_h = 5
+  // int start_v = 0
+  // int end_v = 3
+
+  /*Diagonal right*/
+
+
   return board_score;
+}
+int Node::scoring(int ai, int player, int blank) {
+  int score = 0;
+  if (ai == 1 && blank == 3) { score+= 2; }
+  else if (ai == 2 && blank == 2) { score+= 6; }
+  else if (ai == 3 && blank == 1) { score+= 12; }
+  else if (ai == 4 && blank == 0) { score+= 10000; }
+  else if (player == 1 && blank == 3) { score+= -1; }
+  else if (player == 2 && blank == 2) { score+= -6; }
+  else if (player == 3 && blank == 1) { score+= -1000; }
+  else if (player == 4 && blank == 0) { score+= -5000; }
+  return score;
 }
 void Node::create_board() {
   board = new int* [7];

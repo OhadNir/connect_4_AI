@@ -6,14 +6,14 @@
 int main() {
   std::cout << "Welcome Connect-4!" << std::endl;
   GameTree game = GameTree();
-  bool player = false;
+  bool player = true;
 
   std::cout << "Player moves first." << std::endl;
   while(true) {
     if (game.WinDraw()) {
       break;
     }
-    if (!player) {
+    if (player) {
       while(true) {
         game.printGameSate();
         std::cout << "Choose a column between 1 and 7..." << std::endl;
@@ -23,7 +23,7 @@ int main() {
           bool valid_move = game.playerMove(player_column-1);
           if(valid_move) {
             game.printGameSate();
-            player = true;
+            player = false;
             break;
           }
           else {
@@ -37,7 +37,7 @@ int main() {
     }
     else {
       game.aiMove();
-      player = false;
+      player = true;
     }
   }
 

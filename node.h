@@ -32,6 +32,7 @@ class Node {
     /*Private Member Functions*/
     void create_board();
     void copy_board(int**);
+    int scoring(int, int, int);
 
     /*Private Member Varables*/
     int** board;
