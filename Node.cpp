@@ -3,12 +3,14 @@ Node::Node() {
   this->create_board();
   player=1;
   value=0;
+  gameOver = false;
 }
 
 Node::Node(Node n, int c, int p) {
   player = p;
   column = c;
   copy_board(n.getBoard());
+  gameOver = false;
 }
 
 /*Get Functions*/

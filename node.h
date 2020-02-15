@@ -27,6 +27,7 @@ class Node {
     void print_board();
     int numCol_open();
 
+    bool gameOver;
 
   private:
     /*Private Member Functions*/

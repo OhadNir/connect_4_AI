@@ -11,6 +11,7 @@ int main() {
   std::cout << "Player moves first." << std::endl;
   while(true) {
     if (game.WinDraw()) {
+      game.printGameSate();
       break;
     }
     if (player) {

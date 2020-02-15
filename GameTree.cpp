@@ -1,6 +1,6 @@
 #include "GameTree.h"
 
-int DEPTH = 1;
+int DEPTH = 5;
 
 GameTree::GameTree() {
   root = Node();
@@ -71,26 +71,30 @@ void GameTree::printGameSate() {
   root.print_board();
 }
 bool GameTree::WinDraw() {
-  if(root.getValue() >= 500) {
-    std::cout << "AI Wins!" << std::endl;
-    return true;
+  if(root.gameOver) {
+    if(root.getValue() >= 5000) {
+      std::cout << "AI Wins!" << std::endl;
+      return true;
+    }
+    else if (root.getValue() <= -2500) {
+      std::cout << "Player Wins!" << std::endl;
+      return true;
+    }
+    else if (root.numCol_open() == 0) {
+      std::cout << "Draw!" << std::endl;
+      return true;
+    }
   }
-  else if (root.getValue() <= -3000) {
-    std::cout << "Player Wins!" << std::endl;
-    return true;
-  }
-  else if (root.numCol_open() == 0) {
-    std::cout << "Draw!" << std::endl;
-    return true;
-  }
-  else{
-    return false;
-  }
+  return false;
 }
 void GameTree::generateTree(Node& game, int depth, int player) {
   int value = game.evaluationBoard();
-  if(depth == 0 || game.numCol_open() == 0 || value >= 1000 || value <= -1000) {
+  if(depth == 0 || game.numCol_open() == 0 || value >= 5000 || value <= -2500) {
     //std::cout << "value: " << value << std::endl;
+    if (value >= 5000 || value <= -3000 || game.numCol_open() == 0) {
+      //game.print_board();
+      game.gameOver = true;
+    }
     game.setValue(value);
     return;
   }
