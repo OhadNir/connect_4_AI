@@ -15,7 +15,7 @@ class GameTree {
     void aiMove();
     void printGameSate();
     bool WinDraw();
-
+    int suggestMove();
 
   private:
     /*Private Member Functions*/

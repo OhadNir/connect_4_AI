@@ -79,14 +79,44 @@ int Node::evaluationBoard() {
   }
 
   /*Diagonal Left*/
-  // for (; start_v )
-  // int start_h = 2
-  // int end_h = 5
-  // int start_v = 0
-  // int end_v = 3
+  for (int t=0; t<4; t++) {
+    int start_h = t;
+    int end_h = t+3;
+    int start_v = 2;
+    int end_v = 5;
+    for (; start_v > -1 && end_v > 2; start_v--, end_v--) {
+      unsigned int player_pieces=0;
+      unsigned int ai_pieces=0;
+      unsigned int open_space =0;
+      int i = start_h;
+      for (int j=start_v; j < end_v+1 && i < end_h+1; j++, i++) {
+        if (board[i][j] == 1) { ai_pieces++; }
+        else if (board[i][j] == -1) { player_pieces++; }
+        else { open_space++; }
+      }
+      board_score += scoring(ai_pieces, player_pieces, open_space);
+    }
+  }
 
   /*Diagonal right*/
-
+  for (int t=6; t>2; t--) {
+    int start_h = t;
+    int end_h = t-3;
+    int start_v = 2;
+    int end_v = 5;
+    for (; start_v > -1 && end_v > 2; start_v--, end_v--) {
+      unsigned int player_pieces=0;
+      unsigned int ai_pieces=0;
+      unsigned int open_space =0;
+      int i = start_h;
+      for (int j=start_v; j < end_v+1 && i > end_h-1; j++, i--) {
+        if (board[i][j] == 1) { ai_pieces++; }
+        else if (board[i][j] == -1) { player_pieces++; }
+        else { open_space++; }
+      }
+      board_score += scoring(ai_pieces, player_pieces, open_space);
+    }
+  }
 
   return board_score;
 }

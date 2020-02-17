@@ -87,6 +87,18 @@ bool GameTree::WinDraw() {
   }
   return false;
 }
+int GameTree::suggestMove() {
+  minimax(root, DEPTH, -1010, 1010, -1);
+  std::list<Node*> children = root.getChildren();
+  std::list<Node*>::iterator it = children.begin();
+  for (; it != children.end(); it++) {
+    if (root.getValue() == (**it).getValue()) {
+      return (**it).getColumn() + 1;
+    }
+  }
+  return -1;
+}
+
 void GameTree::generateTree(Node& game, int depth, int player) {
   int value = game.evaluationBoard();
   if(depth == 0 || game.numCol_open() == 0 || value >= 5000 || value <= -2500) {
