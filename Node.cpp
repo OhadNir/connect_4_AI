@@ -12,6 +12,9 @@ Node::Node(Node n, int c, int p) {
   copy_board(n.getBoard());
   gameOver = false;
 }
+Node::~Node() {
+  this->del();
+}
 
 /*Get Functions*/
 int** Node::getBoard() {
@@ -38,8 +41,6 @@ void Node::addChild(Node* child) {
   children.push_back(child);
 }
 int Node::evaluationBoard() {
-  //std::cout << "new" << std::endl;
-  //this->print_board();
   int board_score = 0;
 
   /*Horizontal*/
@@ -47,17 +48,15 @@ int Node::evaluationBoard() {
     int start_h=0;
     int end_h=3;
     for (; start_h < 4 && end_h < 7; start_h++, end_h++) {
-      //std::cout << "Bowned : " << start_h << " ANOTHER: " << end_h << std::endl;
       unsigned int player_pieces=0;
       unsigned int ai_pieces=0;
       unsigned int open_space =0;
-      for (unsigned int j=start_h; j<end_h+1; j++) {
+      for (int j=start_h; j<end_h+1; j++) {
         if (board[j][i] == 1) { ai_pieces++; }
         else if (board[j][i] == -1) { player_pieces++; }
         else { open_space++; }
       }
       board_score += scoring(ai_pieces, player_pieces, open_space);
-      //std::cout << player_pieces << " " << ai_pieces << " " << open_space << std::endl;
     }
   }
 
@@ -69,7 +68,7 @@ int Node::evaluationBoard() {
       unsigned int player_pieces=0;
       unsigned int ai_pieces=0;
       unsigned int open_space =0;
-      for (unsigned int j=end_v; j>start_v-1; j--) {
+      for (int j=end_v; j>start_v-1; j--) {
         if (board[i][j] == 1) { ai_pieces++; }
         else if (board[i][j] == -1) { player_pieces++; }
         else { open_space++; }
@@ -125,11 +124,11 @@ int Node::scoring(int ai, int player, int blank) {
   if (ai == 1 && blank == 3) { score+= 2; }
   else if (ai == 2 && blank == 2) { score+= 6; }
   else if (ai == 3 && blank == 1) { score+= 12; }
-  else if (ai == 4 && blank == 0) { score+= 10000; }
+  else if (ai == 4 && blank == 0) { score+= 100000; }
   else if (player == 1 && blank == 3) { score+= -1; }
   else if (player == 2 && blank == 2) { score+= -6; }
   else if (player == 3 && blank == 1) { score+= -1000; }
-  else if (player == 4 && blank == 0) { score+= -5000; }
+  else if (player == 4 && blank == 0) { score+= -100000; }
   return score;
 }
 void Node::create_board() {
@@ -176,4 +175,11 @@ void Node::print_board() {
     std::cout << "|\n";
   }
   std::cout << "-----------------------\n|                     |\n___                 ___\n" << std::endl;
+}
+void Node::del() {
+  //std::cout << "Distructor is called." << std::endl;
+  // for (int i=0; i<7; i++) {
+  //   delete board[i];
+  // }
+  // delete board;
 }

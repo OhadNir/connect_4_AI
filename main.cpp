@@ -5,7 +5,11 @@
 
 int main() {
   std::cout << "Welcome Connect-4!" << std::endl;
-  std::cout << "Would you like cheats ON(1) or OFF(any other number)?" <<std::endl;
+  std::cout << "How many moves ahead will the AI look? (NOTICE: 4 will be ideal for most machines. Any more could make the AI take a long time to make a decision.)" << std::endl;
+  int depth;
+  std::cin >> depth;
+
+  std::cout << "Would you like Suggestions ON(1) or OFF(any other number)? (Won't guarantee a win; However, it will suggest optimal moves to consider.)" <<std::endl;
   int cheats = 0;
   std::cin >> cheats;
 
@@ -13,12 +17,12 @@ int main() {
   if (cheats == 1) {
     suggest = true;
   }
-  GameTree game = GameTree();
+  GameTree game = GameTree(depth);
   bool player = true;
 
   std::cout << "Player moves first." << std::endl;
   while(true) {
-    if (game.WinDraw()) {
+    if (game.WinDraw() != -1) {
       game.printGameSate();
       break;
     }
@@ -52,6 +56,23 @@ int main() {
       player = true;
     }
   }
+
+  if(game.WinDraw() == 0) {
+    std::cout << "Draw!" << std::endl;
+  }
+  else if(game.WinDraw() == 1) {
+    std::cout << "Player Wins!" << std::endl;
+  }
+  else {
+    std::cout << "AI Wins!" << std::endl;
+  }
+  std::cout << "Game Statistic:\n" <<
+               "Total Number of Moves Made - " << game.NumberOFMoves() << "\n" <<
+               "Board States Generated - " << game.NumberOfBoardsGenerated() << "\n"<<
+               "Boards Analyzed - " << game.NumberOfBoardsAnalyzed() << "\n" <<
+               "Player Win States Within " << depth << " moves - " << game.NumberOfWinStatesPY() << "\n" <<
+               "AI Win States Within " << depth << " moves - " << game.NumberOfWinStatesAI() <<
+               std::endl;
 
   return 0;
 }
