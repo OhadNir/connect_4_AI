@@ -12,9 +12,6 @@ Node::Node(Node n, int c, int p) {
   copy_board(n.getBoard());
   gameOver = false;
 }
-Node::~Node() {
-  this->del();
-}
 
 /*Get Functions*/
 int** Node::getBoard() {
@@ -175,11 +172,4 @@ void Node::print_board() {
     std::cout << "|\n";
   }
   std::cout << "\t-----------------------\n\t|                     |\n\t___                 ___\n" << std::endl;
-}
-void Node::del() {
-  //std::cout << "Distructor is called." << std::endl;
-  // for (int i=0; i<7; i++) {
-  //   delete board[i];
-  // }
-  // delete board;
 }

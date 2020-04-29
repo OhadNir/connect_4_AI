@@ -157,28 +157,3 @@ void GameTree::generateTree(Node& game, int depth, int player) {
     }
   }
 }
-void GameTree::setNewGameState(int c) {
-  std::list<Node*> children = root.getChildren();
-  std::list<Node*>::iterator it = children.begin();
-  for(; it != children.end(); it++) {
-    if ((**it).getColumn() != c) {
-      del(**it);
-    }
-    else {
-      root = **it;
-    }
-  }
-}
-void GameTree::del(Node& board) {
-  if(board.getChildren().size() == 0) {
-    //delete board;
-    return;
-  }
-  std::list<Node*> children = board.getChildren();
-  std::list<Node*>::iterator it = children.begin();
-  for (; it!=children.end(); it++) {
-    del(**it);
-  }
-  //delete board;
-  return;
-}

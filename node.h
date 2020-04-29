@@ -10,8 +10,6 @@ class Node {
     Node();
     /*Constructor*/
     Node(Node, int, int);
-    /*Distructor*/
-    ~Node();
 
     /*Get Functions*/
     int getValue() const;
@@ -36,7 +34,6 @@ class Node {
     void create_board();
     void copy_board(int**);
     int scoring(int, int, int);
-    void del();
 
     /*Private Member Varables*/
     int** board;

@@ -26,8 +26,6 @@ class GameTree {
   private:
     /*Private Member Functions*/
     void generateTree(Node&, int, int);
-    void setNewGameState(int);
-    void del(Node&);
 
     /*Private Member Varables*/
     Node root;
