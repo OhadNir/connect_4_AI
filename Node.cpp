@@ -164,9 +164,9 @@ void Node::copy_board(int** b) {
   }
 }
 void Node::print_board() {
-  std::cout << "-----------------------" << std::endl;
+  std::cout << "\t-----------------------" << std::endl;
   for(int i=0; i<6; i++) {
-    std::cout << "|";
+    std::cout << "\t|";
     for(int j=0; j<7; j++) {
       if(board[j][i] == -1) { std::cout << " X "; }
       else if(board[j][i] == 1) { std::cout << " O "; }
@@ -174,7 +174,7 @@ void Node::print_board() {
     }
     std::cout << "|\n";
   }
-  std::cout << "-----------------------\n|                     |\n___                 ___\n" << std::endl;
+  std::cout << "\t-----------------------\n\t|                     |\n\t___                 ___\n" << std::endl;
 }
 void Node::del() {
   //std::cout << "Distructor is called." << std::endl;
